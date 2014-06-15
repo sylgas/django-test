@@ -1,0 +1,33 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>DjangoDemo</title>
+    <link rel="stylesheet" href="{% static "bootstrap/dist/css/bootstrap.css" %}">
+    <script rel="stylesheet" src="{% static "bootstrap/dist/js/bootstrap.min.js" %}"></script>
+    <script src="{% static "jquery/dist/jquery.min.js" %}"></script>
+
+    <div class=" page-header" style="text-align: center; color: slategrey">
+        <h1><a style="text-decoration: none" href="{% url "index" %}">DjangoDemo</a></h1>
+    </div>
+    <style type="text/css">
+        .list-group {
+            width: 200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+    </style>
+</head>
+<body>
+<ul class="list-group">
+    <li class="list-group-item">
+        <span class="glyphicon glyphicon-search"></span>
+        <a href="{% url "template" template_name='person_list' %}">CallPerson List</a>
+    </li>
+    <li class="list-group-item">
+        <span class="glyphicon glyphicon-plus"></span>
+        <a href="{% url "template" template_name='create_person' %}">Create Person</a></li>
+</ul>
+</center>
+</body>
+</html>

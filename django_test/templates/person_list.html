@@ -1,0 +1,113 @@
+{% load staticfiles %}
+
+<!DOCTYPE html5>
+<html>
+<head>
+    <title>CallPerson</title>
+    <link rel="stylesheet" href="{% static "bootstrap/dist/css/bootstrap.css" %}">
+    <div class=" page-header" style="text-align: center; color: slategrey">
+        <h1><a style="text-decoration: none" href="{% url "index" %}">DjangoDemo</a></h1>
+    </div>
+    <style type="text/css">
+        .container {
+            margin: auto;
+        }
+
+        .panel {
+            margin: auto;
+            margin-bottom: 100dpi;
+            width: 95%; /* or whatever width for your table*/
+        }
+
+        .panel-heading {
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .table {
+            display: table;
+        }
+
+        .small_field {
+            padding: 0px 2px; /* just some padding, if needed*/
+            white-space: pre; /* this will avoid line breaks*/
+            text-align: center;
+        }
+
+        .big_field {
+            width: 30%;
+            text-align: center;
+            white-space: pre; /* this will avoid line breaks*/
+        }
+    </style>
+</head>
+<body ng-app="{% block ng_app %}django_test.person_connection{% endblock %}">
+<div class="container">
+    <div class="content ng-cloak" ng-controller="{% block ng_controller %}PersonController{% endblock %}">
+        {% block content %}
+            <div class="panel panel-default">
+                <div class="panel-heading">CallPerson</div>
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th class="small_field">#</th>
+                        <th class="big_field">First Name</th>
+                        <th class="big_field">Last Name</th>
+                        <th class="small_field"></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% verbatim %}
+                    <tr ng-repeat="person in person_list">
+                        <td class="small_field">{{ person.id }}</td>
+                        <td class="big_field">{{ person.first_name }}</td>
+                        <td class="big_field">{{ person.last_name }}</td>
+
+                        <td class="small_field"><a ng-click="showDetails(person)">details</a></td>
+                        {% endverbatim %}
+                    </tr>
+                    </tbody>
+                </table>
+            </div><br><br><br>
+            <div class="panel panel-default">
+                <div class="panel-heading">Connections</div>
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th class="small_field">#</th>
+                        <th class="big_field">From</th>
+                        <th class="big_field">To</th>
+                        <th class="big_field">Date</th>
+                        <th class="small_field">Duration</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% verbatim %}
+                    <tr ng-repeat="connection in connections">
+                        <td class="small_field">{{ connection.id }}</td>
+                        <td class="big_field">{{ connection.init_person.first_name }} {{
+                            connection.init_person.last_name }}
+                        </td>
+                        <td class="big_field">{{ connection.answer_person.first_name }} {{
+                            connection.answer_person.last_name }}
+                        </td>
+                        <td class="big_field">{{ connection.date }}</td>
+                        <td class="small_field">{{ connection.duration }}</td>
+                        {% endverbatim %}
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class=" page-header"></div>
+        {% endblock %} </div>
+
+</div>
+{% block js %}
+    <script src="{% static "angular/angular.js" %}"></script>
+    <script src="{% static "angular-resource/angular-resource.js" %}"></script>
+    <script src="{% static "jquery/dist/jquery.js" %}"></script>
+    <script rel="stylesheet" src="{% static "bootstrap/dist/js/bootstrap.min.js" %}"></script>
+    <script src="{% static "js/script.js" %}"></script>
+{% endblock %}
+</body>
+</html>

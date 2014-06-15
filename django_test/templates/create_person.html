@@ -1,0 +1,52 @@
+{% load staticfiles %}
+<!DOCTYPE html5>
+<html>
+<head>
+    <meta charset="UTF-8"/>
+    <title>Create Person</title>
+    <link rel="stylesheet" href="{% static "bootstrap/dist/css/bootstrap.css" %}">
+    <div class=" page-header" style="text-align: center; color: slategrey">
+        <h1><a style="text-decoration: none" href="{% url "index" %}">DjangoDemo</a></h1>
+    </div>
+</head>
+
+<body ng-app="{% block ng_app %}django_test.create_person{% endblock %}">
+<div class="content" ng-controller="{% block ng_controller %}CreateController{% endblock %}">{% block content %}
+    {% verbatim %}
+    <div class="create_form" style="width:400px; margin: 0 auto">
+        <h1>Create CallPerson</h1>
+
+        <div class="required-field-block">
+            <input type="text" placeholder="First Name" ng-model="newPerson.first_name" class="form-control">
+
+            <div class="required-icon">
+                <div class="text">*</div>
+            </div>
+        </div>
+
+        <div class="required-field-block">
+            <input type="text" ng-model="newPerson.last_name" placeholder="Last Name" class="form-control">
+
+            <div class="required-icon">
+                <div class="text">*</div>
+            </div>
+        </div>
+        <input type="submit" value="Save" ng-click="save()" class="active btn btn-primary">
+
+        <p ng-repeat="(name, errs) in errors" class="alert alert-danger"><strong>{{ name }}</strong>: {{ errs.join(',
+            ')}}
+        </p>
+
+    </div>
+    {% endverbatim %}
+{% endblock %}
+</div>
+{% block js %}
+    <script src="{% static "angular/angular.js" %}"></script>
+    <script src="{% static "jquery/dist/jquery.min.js" %}"></script>
+    <script rel="stylesheet" src="{% static "bootstrap/dist/js/bootstrap.min.js" %}"></script>
+    <script src="{% static "angular-resource/angular-resource.js" %}"></script>
+    <script src="{% static "js/script.js" %}"></script>
+{% endblock %}
+</body>
+</html>
